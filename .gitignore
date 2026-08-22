@@ -1,0 +1,149 @@
+# =============================================================================
+# .gitignore — ROSA Knee AI
+# =============================================================================
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+
+# ---- Virtual environment ----
+.venv/
+venv/
+env/
+
+# ---- Node / Frontend ----
+frontend/node_modules/
+frontend/dist/
+.npm/
+
+# ---- Data (too large for git & patient privacy) ----
+data/raw/*
+data/interim/*
+data/processed/*
+data/cases/*
+!data/raw/.gitkeep
+!data/interim/.gitkeep
+!data/processed/.gitkeep
+
+# ---- Outputs ----
+outputs/figures/*
+outputs/reports/*
+outputs/processed/*
+outputs/meshes/*
+outputs/plans/*
+!outputs/figures/.gitkeep
+!outputs/reports/.gitkeep
+!outputs/processed/.gitkeep
+!outputs/meshes/.gitkeep
+!outputs/plans/.gitkeep
+
+# ---- Jupyter ----
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ---- IDE ----
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ---- OS ----
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- Misc ----
+*.log
+*.tmp
+.pytest_cache/
+
+# =============================================================================
+# Secrets & credentials — NEVER commit
+# =============================================================================
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+*.p12
+credentials*
+credentials.*
+secrets.*
+secrets/
+*.token
+*.htpasswd
+config.local.*
+*.gpg
+id_rsa
+id_ed25519
+
+# =============================================================================
+# Medical imaging & patient data — NEVER commit (privacy + size)
+# =============================================================================
+*.nii
+*.nii.gz
+*.dcm
+*.DCM
+*.dicom
+*.npz
+*.nrrd
+*.mhd
+*.mha
+*.raw
+*.mrc
+*.fdf
+# Allow .zip of DICOM (the app accepts these as uploads), but ignore any
+# very large uploaded archives automatically via the size-based rule below.
+
+# =============================================================================
+# Model weights & large ML artifacts — NEVER commit
+# =============================================================================
+*.pt
+*.pth
+*.onnx
+*.h5
+*.hdf5
+*.ckpt
+*.safetensors
+*.pb
+*.tflite
+*.bin
+*.engine
+*.plan
+*.trt
+weights/
+checkpoints/
+models/*.bin
+models/*.pt
+models/*.onnx
+
+# =============================================================================
+# Datasets & large binaries
+# =============================================================================
+datasets/
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+*.parquet
+*.arrow
+*.feather
+
+# ---- Logs ----
+logs/
+
+# ---- Allow empty placeholders so folders stay tracked ----
+!data/raw/.gitkeep
+!data/interim/.gitkeep
+!data/processed/.gitkeep
+!outputs/figures/.gitkeep
+!outputs/reports/.gitkeep
+!outputs/processed/.gitkeep
+!outputs/meshes/.gitkeep
+!outputs/plans/.gitkeep

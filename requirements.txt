@@ -1,0 +1,31 @@
+# =============================================================================
+# ROSA Knee AI — Module 0: Data Foundation
+# =============================================================================
+# Core scientific computing
+numpy>=1.24
+scipy>=1.10
+
+# Medical image I/O
+SimpleITK>=2.3
+nibabel>=5.0
+pydicom>=2.4
+
+# Visualization
+matplotlib>=3.7
+
+# Data reporting
+pandas>=2.0
+
+# Configuration
+PyYAML>=6.0
+
+# Progress bars
+tqdm>=4.65
+
+# 3D mesh preview (marching cubes)
+scikit-image>=0.21
+
+# ---------------------------------------------------------------------------
+# NOT installed at this stage (future modules):
+#   torch, monai, nnunet, vtk, trimesh, open3d
+# ---------------------------------------------------------------------------

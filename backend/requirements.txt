@@ -1,0 +1,27 @@
+# =============================================================================
+# ROSA Knee AI — Backend Dependencies
+# =============================================================================
+# FastAPI application server
+fastapi>=0.111
+uvicorn[standard]>=0.30
+python-multipart>=0.0.9
+
+# Data validation
+pydantic>=2.7
+pydantic-settings>=2.3
+
+# Medical imaging (shared with src/)
+SimpleITK>=2.3
+numpy>=1.24
+
+# File handling
+python-multipart>=0.0.9
+aiofiles>=23.2
+
+# YAML config
+PyYAML>=6.0
+
+# Testing
+pytest>=8.0
+httpx>=0.27
+pytest-asyncio>=0.23

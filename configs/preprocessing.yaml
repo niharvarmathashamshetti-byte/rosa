@@ -1,0 +1,42 @@
+# =============================================================================
+# Preprocessing Configuration — ROSA Knee AI
+# =============================================================================
+# These parameters control the preprocessing pipeline.
+# They are saved alongside outputs for reproducibility.
+# =============================================================================
+
+resampling:
+  # Target isotropic voxel spacing in mm
+  target_spacing: [0.5, 0.5, 0.5]
+  # Interpolation for CT images (linear preserves intensity gradients)
+  interpolator: "linear"
+  # Interpolation for segmentation masks (nearest preserves discrete labels)
+  mask_interpolator: "nearest"
+
+windowing:
+  # Bone window — optimized for cortical/cancellous bone visualization
+  # Window Center (Level) = midpoint of the HU range displayed
+  # Window Width = total range of HU values displayed
+  # Displayed range = [center - width/2, center + width/2] = [-350, 1150] HU
+  bone:
+    window_center: 400
+    window_width: 1500
+  # Soft tissue window — for muscle, fat, ligament visualization
+  soft_tissue:
+    window_center: 40
+    window_width: 400
+
+cropping:
+  # "manual" = user-specified fractional ranges
+  # "auto"   = automatic knee localization (FUTURE MODULE — not yet implemented)
+  method: "manual"
+  # Fractional ranges [start, end] along each axis (0.0 = start, 1.0 = end)
+  # Default: full volume (no cropping)
+  axial_range: [0.0, 1.0]
+  coronal_range: [0.0, 1.0]
+  sagittal_range: [0.0, 1.0]
+
+output:
+  # Save preprocessed volumes as NIfTI (.nii.gz) for compatibility
+  format: "nifti"
+  save_dir: "data/processed"
