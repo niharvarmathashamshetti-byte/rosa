@@ -14,10 +14,13 @@ Unit and integration tests for FastAPI endpoints:
 """
 
 import io
-import tempfile
+import subprocess
+import sys
 from pathlib import Path
+
 import numpy as np
 import pytest
+import SimpleITK as sitk
 from fastapi.testclient import TestClient
 
 from backend.app.main import app
@@ -126,3 +129,38 @@ def test_case_lifecycle_with_segmentation_mask():
 
     # Confirm 404 after deletion
     assert client.get(f"/api/v1/cases/{case_id}").status_code == 404
+
+
+def test_run_preprocessing_script_creates_preprocessed_nifti(tmp_path):
+    """The preprocessing CLI should resample an input NIfTI file to the target spacing."""
+    project_root = Path(__file__).resolve().parents[2]
+    data_dir = tmp_path / "data"
+    data_dir.mkdir()
+
+    image = sitk.GetImageFromArray(np.ones((10, 20, 30), dtype=np.float32))
+    image.SetSpacing((2.0, 1.0, 1.0))
+    sitk.WriteImage(image, str(data_dir / "sample_volume.nii.gz"))
+
+    output_dir = tmp_path / "preprocessed"
+    script_path = project_root / "scripts" / "run_preprocessing.py"
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            str(script_path),
+            "--data-dir",
+            str(data_dir),
+            "--output-dir",
+            str(output_dir),
+        ],
+        capture_output=True,
+        text=True,
+        cwd=str(project_root),
+    )
+
+    assert result.returncode == 0, result.stderr or result.stdout
+    out_file = output_dir / "sample_volume_preprocessed.nii.gz"
+    assert out_file.exists(), result.stdout
+
+    out_image = sitk.ReadImage(str(out_file))
+    assert tuple(round(v, 3) for v in out_image.GetSpacing()) == (0.5, 0.5, 0.5)
