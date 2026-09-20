@@ -1,0 +1,19 @@
+# Core
+numpy
+pandas
+nibabel
+scikit-image
+
+# nnU-Net v2 (pulls in its own torch dependency spec, but on most systems
+# you should install the correct CUDA build of torch FIRST from
+# https://pytorch.org/get-started/locally/ before installing nnunetv2)
+nnunetv2
+
+# Metrics
+medpy          # for HD95 — optional but recommended, script degrades gracefully without it
+
+# Visualization
+matplotlib
+
+# 3D mesh export (optional — falls back to a built-in STL writer if absent)
+trimesh
